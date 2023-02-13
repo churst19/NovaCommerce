@@ -1,0 +1,4 @@
+start server with 'nodemon app'
+:5000
+
+start client with
