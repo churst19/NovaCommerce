@@ -7,12 +7,18 @@ const PORT = process.env.PORT || 5000
 import products from "./data/products.js"
 
 import colors from "colors"
+import productRouter from "./routes/productRoutes.js"
 dotenv.config()
 
 connectDB()
 
 const app = express()
 
+app.use(express.json())
+
+app.get("/", (req, res) => {
+  res.send("API is running...")
+})
 app.listen(
   5000,
   console.log(
@@ -20,16 +26,20 @@ app.listen(
   )
 )
 
-app.get("/api/products", (req, res) => {
-  // console.log("home")
-  res.send(products)
-})
-app.get("/api/products/:id", (req, res) => {
-  const product = products.find((p) => p._id === req.params.id)
-  // req.params.id gets the id only from url params, use this to search for the specific object by that id
-  // console.log(product)
-  res.send(product)
-})
+app.use("/api/products", productRouter)
+
+// app.get("/api/products", (req, res) => {
+//   // console.log("home")
+//   res.send(products)
+// })
+
+// app.use("/api/products", productRouter)
+// app.get("/api/products/:id", (req, res) => {
+//   const product = products.find((p) => p._id === req.params.id)
+//   // req.params.id gets the id only from url params, use this to search for the specific object by that id
+//   // console.log(product)
+//   res.send(product)
+// })
 
 //////
 

@@ -29,7 +29,7 @@ const Product = (props) => {
         <img className="product-img" src={product.image} alt={product.name} />
         <div className="product-body">
           <h3 className="product-title">{product.name}</h3>
-          <p className="product-text">
+          <div className="product-text">
             <h5 className="product-description">{product.description}</h5>
             <h5 className="product-brand">Brand: {product.brand}</h5>
             <h5 className="product-category">Category: {product.category}</h5>
@@ -44,7 +44,7 @@ const Product = (props) => {
               <strong>${product.price}</strong>
             </h2>
             <btn className="button-background">Add to cart</btn>
-          </p>
+          </div>
           {/* <a href="#" className="btn btn-primary">
               View Product
             </a> */}
