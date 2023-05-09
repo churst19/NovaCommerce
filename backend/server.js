@@ -4,10 +4,11 @@ import connectDB from "./config/db.js"
 // const mongoose = require("mongoose");
 const PORT = process.env.PORT || 5000
 // const { MONGOURI } = require("./keys")
-import products from "./data/products.js"
+// import products from "./data/products.js"
 
 import colors from "colors"
 import productRouter from "./routes/productRoutes.js"
+import userRouter from "./routes/userRoutes.js"
 dotenv.config()
 
 connectDB()
@@ -27,6 +28,8 @@ app.listen(
 )
 
 app.use("/api/products", productRouter)
+app.use("/api/users", userRouter)
+// app.use("/api/orders", orderRouter)
 
 // app.get("/api/products", (req, res) => {
 //   // console.log("home")
