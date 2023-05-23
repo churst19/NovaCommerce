@@ -1,4 +1,4 @@
-import React from "react"
+import React, { createContext } from "react"
 import { BrowserRouter as Router, Route, withRouter } from "react-router-dom"
 import { Container } from "react-bootstrap"
 import Header from "./components/Navbar"
@@ -7,6 +7,8 @@ import HomeScreen from "./screens/HomeScreen"
 import ProductScreen from "./screens/ProductScreen"
 import LoginScreen from "./screens/LoginScreen"
 import SignupScreen from "./screens/SignupScreen"
+
+export const UserContext = createContext()
 
 const App = () => {
   return (

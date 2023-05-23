@@ -1,6 +1,8 @@
 import express from "express"
 import User from "../models/userModel.js"
 import bcrypt from "bcryptjs"
+import jwt from "jsonwebtoken"
+import createJWT from "../utils/auth.js"
 
 const userRouter = express.Router()
 
@@ -14,7 +16,7 @@ const userRouter = express.Router()
 
 //test
 userRouter.post("/signup", async (req, res) => {
-  console.log(req.body)
+  // console.log(req.body)
   const temp = req.body
   const user = { ...temp, password: bcrypt.hashSync(req.body.password) }
   await User.create(user)
@@ -35,12 +37,40 @@ userRouter.post("/login", async (req, res) => {
   // console.log("here")
   try {
     const user = await User.findOne({ email: req.body.email })
-    console.log(user.password)
-    const result = await bcrypt.compare(req.body.password, user.password)
-    console.log(result)
-    // res.json(user)
+    if (user) {
+      const passwordMatches = await bcrypt.compare(
+        req.body.password,
+        user.password
+      )
+      if (passwordMatches) {
+        user.password = undefined
+        const access_token = createJWT(user.email, user._id, 3600)
+        jwt.verify(access_token, process.env.JWT_SECRET, (err, decoded) => {
+          if (err) {
+            res.status(500).json({ error: err })
+          }
+          if (decoded) {
+            return res.status(200).json({
+              success: true,
+              token: access_token,
+              message: user,
+            })
+          }
+        })
+      } else {
+        res
+          .status(404)
+          .json({ error: "User not found or password does not match" })
+      }
+    } else {
+      res
+        .status(404)
+        .json({ error: "User not found or password does not match" })
+    }
   } catch (err) {
+    //TODO: remove consle log
     console.log(err)
+    res.json({ error: err })
   }
 })
 

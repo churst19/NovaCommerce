@@ -1,16 +1,20 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 // import products from "../products"
 import { LinkContainer } from "react-router-bootstrap"
 import { Row, Col } from "react-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import axios from "axios"
+import { UserContext } from "../App.js"
 // import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const LoginScreen = () => {
+  const history = useHistory()
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   })
+
+  // const { state, dispatch } = useContext(UserContext)
   // console.log(formData)
 
   function handleChange(event) {
@@ -24,10 +28,21 @@ const LoginScreen = () => {
     })
   }
 
-  const submitHandler = (event) => {
+  const submitHandler = async (event) => {
     event.preventDefault()
-    console.log(formData)
-    axios.post("/api/users/login", formData)
+    // console.log(formData)
+    try {
+      const res = await axios.post("/api/users/login", formData)
+      const data = res.data
+      console.log(data)
+      localStorage.setItem("jwt", data.token)
+      localStorage.setItem("user", JSON.stringify(data.message))
+      // dispatch({ type: "USER", payload: data.user })
+      history.push("/")
+    } catch (err) {
+      console.log("in error")
+      console.log(err)
+    }
   }
   return (
     <div className="Auth-form-container">
