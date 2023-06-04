@@ -16,9 +16,31 @@ const Product = (props) => {
       setProduct(data)
     }
     fetchProduct()
-    // console.log(products)
-    // console.log(res)
   }, [props.match])
+
+  const handleAddToCart = () => {
+    // localStorage.setItem("jwt", data.token)
+    if (
+      //might have to check the {} for empty cart after handling remove from cart functionality
+      !localStorage.getItem("cart") ||
+      JSON.parse(localStorage.getItem("cart") === "{}")
+    ) {
+      //handle empty cart or cart that doesn't exist
+      localStorage.setItem("cart", JSON.stringify({ [product._id]: 1 }))
+    } else {
+      //get whole cart
+      let cart = JSON.parse(localStorage.getItem("cart"))
+      //get qty of this item
+      let quantity = cart[product._id]
+      quantity ? (quantity += 1) : (quantity = 1)
+
+      //update relevant part of cart
+      const result = { [product._id]: quantity }
+      Object.assign(cart, result)
+
+      localStorage.setItem("cart", JSON.stringify(cart))
+    }
+  }
   return (
     <div>
       <Link style={{ textDecoration: "none" }} to={`/`}>
@@ -43,7 +65,9 @@ const Product = (props) => {
             <h2>
               <strong>${product.price}</strong>
             </h2>
-            <btn className="button-background">Add to cart</btn>
+            <btn className="button-background" onClick={handleAddToCart}>
+              Add to cart
+            </btn>
           </div>
           {/* <a href="#" className="btn btn-primary">
               View Product
