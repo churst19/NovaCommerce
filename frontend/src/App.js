@@ -7,6 +7,7 @@ import HomeScreen from "./screens/HomeScreen"
 import ProductScreen from "./screens/ProductScreen"
 import LoginScreen from "./screens/LoginScreen"
 import SignupScreen from "./screens/SignupScreen"
+import CartScreen from "./screens/CartScreen"
 
 export const UserContext = createContext()
 
@@ -24,6 +25,7 @@ const App = () => {
             ></Route>
             <Route path="/login" component={withRouter(LoginScreen)}></Route>
             <Route path="/signup" component={withRouter(SignupScreen)}></Route>
+            <Route path="/cart" component={withRouter(CartScreen)}></Route>
           </Container>
         </main>
         <Footer />

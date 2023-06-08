@@ -1,7 +1,6 @@
 import React from "react"
 import { LinkContainer } from "react-router-bootstrap"
 import { Navbar, Nav, Container } from "react-bootstrap"
-import Cart from "./Cart"
 
 const Header = () => {
   const cartCount = () => {
@@ -10,10 +9,9 @@ const Header = () => {
     //probably the latter and in the cart page
     if (!localStorage.getItem("cart")) {
       //handle cart that doesn't exist
-      localStorage.setItem("cart", JSON.stringify("{}"))
+      localStorage.setItem("cart", JSON.stringify({}))
     }
     const cart = JSON.parse(localStorage.getItem("cart"))
-    console.log(Object.values(cart))
     const sum = Object.values(cart).reduce((partialSum, a) => partialSum + a, 0)
     return sum
   }

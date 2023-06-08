@@ -10,7 +10,7 @@ const Product = (props) => {
   const [product, setProduct] = React.useState([])
 
   useEffect(() => {
-    console.log("effect")
+    // console.log("effect")
     const fetchProduct = async () => {
       const { data } = await axios.get(`/api/products/${props.match.params.id}`)
       setProduct(data)
@@ -22,8 +22,8 @@ const Product = (props) => {
     // localStorage.setItem("jwt", data.token)
     if (
       //might have to check the {} for empty cart after handling remove from cart functionality
-      !localStorage.getItem("cart") ||
-      JSON.parse(localStorage.getItem("cart") === "{}")
+      !localStorage.getItem("cart")
+      // JSON.parse(localStorage.getItem("cart") === "{}")
     ) {
       //handle empty cart or cart that doesn't exist
       localStorage.setItem("cart", JSON.stringify({ [product._id]: 1 }))
