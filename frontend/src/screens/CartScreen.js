@@ -1,74 +1,57 @@
 import React, { useEffect, useRef } from "react"
-// import products from "../products"
 import { Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import axios from "axios"
-// import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const CartScreen = () => {
-  //TODO:
-  //allow updates to quantity
-  //save state's quantities to local storage if navigating away
   const [products, setProducts] = React.useState([])
   const [cart, setCart] = React.useState({})
-  let total = useRef(0)
-  let productsObject = {}
+  const [total, setTotal] = React.useState(0.0)
 
   useEffect(() => {
     console.log("initial effect")
     setCart(JSON.parse(localStorage.getItem("cart")))
   }, [])
 
+  //cart effect
   useEffect(() => {
-    console.log("cart effect")
     const fetchProducts = async () => {
       let result = []
       for (let cartProductId in cart) {
         let temp = await axios.get(`/api/products/${cartProductId}`)
         result.push(temp.data)
-        productsObject[cartProductId] = temp.data
       }
 
       setProducts(result)
     }
-    fetchProducts()
+    if (products.length === 0) fetchProducts()
     localStorage.setItem("cart", JSON.stringify(cart))
 
-    console.log("products ", products)
-    const calculateTotal = () => {
-      let total = 0
-
-      for (let cartProductId in cart) {
-        // calculatePrice( price , qty )
-        total += calculatePrice(
-          //TODO: I think the problem is that this is not getting the price b/c it is in an array not an object
-          // productsObject[cartProductId].price,
-          3,
-          cart[cartProductId]
-        )
-        console.log(cartProductId, " ", cart[cartProductId])
-        console.log("total ", total)
-      }
-      return total
-    }
-    if (products) total.current = calculateTotal()
+    calculateTotal()
   }, [cart])
 
+  //product effect
   useEffect(() => {
     console.log("product effect")
-    //copy product array to object
-    // let productsObject = {}
-    // for (let object in products) {
-    //   productsObject[object._id] = object
-    // }
-    // console.log("productsObject ",productsObject)
+    calculateTotal()
   }, [products])
 
   const calculatePrice = (price, qty) => {
     let result = price * qty
-    console.log("price ", result, " ", result.toFixed(2))
-    // result = result.toFixed(2)
+    result = result.toFixed(2)
     return result
+  }
+
+  const calculateTotal = () => {
+    let total = 0
+
+    for (let cartProductId in cart) {
+      let product = products.find(({ _id }) => _id === cartProductId)
+      if (product) total += product.price * cart[cartProductId]
+    }
+    console.log("total ", total)
+    total = total.toFixed(2)
+    setTotal(total)
   }
 
   const handleIncrementItem = (productId) => {
@@ -87,6 +70,7 @@ const CartScreen = () => {
       newCart = Object.assign(newCart, result)
       return newCart
     })
+    calculateTotal()
   }
 
   const handleDecrementItem = (productId) => {
@@ -105,8 +89,8 @@ const CartScreen = () => {
       newCart = Object.assign(newCart, result)
       return newCart
     })
+    calculateTotal()
   }
-
   const details = products.map((product) => {
     return (
       <div key={product._id} sm={12} md={6} lg={4} xl={3}>
@@ -162,7 +146,7 @@ const CartScreen = () => {
       <h1>Your Cart</h1>
       <Row>{details}</Row>
       {/* TODO: implement total card on right or below here */}
-      <Row>TOTAL ${total.current}</Row>
+      <Row>TOTAL ${total}</Row>
     </div>
   )
 }
