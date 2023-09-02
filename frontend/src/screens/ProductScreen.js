@@ -1,12 +1,14 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useContext } from "react"
 // import products from "../products"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import { CartContext } from "../contexts/CartContext"
 
 const Product = (props) => {
   // const product = products.find((p) => p._id === props.match.params.id)
   // return <div>Product Screen Placeholder</div>
   //TODO: make this more responsive when resizing
+  const { addToCart } = useContext(CartContext)
   const [product, setProduct] = React.useState([])
 
   useEffect(() => {
@@ -20,26 +22,29 @@ const Product = (props) => {
 
   const handleAddToCart = () => {
     // localStorage.setItem("jwt", data.token)
-    if (
-      //might have to check the {} for empty cart after handling remove from cart functionality
-      !localStorage.getItem("cart")
-      // JSON.parse(localStorage.getItem("cart") === "{}")
-    ) {
-      //handle empty cart or cart that doesn't exist
-      localStorage.setItem("cart", JSON.stringify({ [product._id]: 1 }))
-    } else {
-      //get whole cart
-      let cart = JSON.parse(localStorage.getItem("cart"))
-      //get qty of this item
-      let quantity = cart[product._id]
-      quantity ? (quantity += 1) : (quantity = 1)
 
-      //update relevant part of cart
-      const result = { [product._id]: quantity }
-      Object.assign(cart, result)
+    return addToCart(product)
 
-      localStorage.setItem("cart", JSON.stringify(cart))
-    }
+    // if (
+    //   //might have to check the {} for empty cart after handling remove from cart functionality
+    //   !localStorage.getItem("cart")
+    //   // JSON.parse(localStorage.getItem("cart") === "{}")
+    // ) {
+    //   //handle empty cart or cart that doesn't exist
+    //   localStorage.setItem("cart", JSON.stringify({ [product._id]: 1 }))
+    // } else {
+    //   //get whole cart
+    //   let cart = JSON.parse(localStorage.getItem("cart"))
+    //   //get qty of this item
+    //   let quantity = cart[product._id]
+    //   quantity ? (quantity += 1) : (quantity = 1)
+
+    //   //update relevant part of cart
+    //   const result = { [product._id]: quantity }
+    //   Object.assign(cart, result)
+
+    //   localStorage.setItem("cart", JSON.stringify(cart))
+    // }
   }
   return (
     <div>

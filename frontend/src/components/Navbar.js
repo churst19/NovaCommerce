@@ -1,20 +1,12 @@
-import React from "react"
+import { useContext } from "react"
 import { LinkContainer } from "react-router-bootstrap"
 import { Navbar, Nav, Container } from "react-bootstrap"
+import { useCartContext, CartContext } from "../contexts/CartContext"
 
 const Header = () => {
-  const cartCount = () => {
-    //TODO: make this use state to update count after editing the cart,
-    //not sure if you would do this here or in a useEffect on ProductScreen.
-    //probably the latter and in the cart page
-    if (!localStorage.getItem("cart")) {
-      //handle cart that doesn't exist
-      localStorage.setItem("cart", JSON.stringify({}))
-    }
-    const cart = JSON.parse(localStorage.getItem("cart"))
-    const sum = Object.values(cart).reduce((partialSum, a) => partialSum + a, 0)
-    return sum
-  }
+  // const { cart, setCart } = useCartContext()
+  const { cartCount } = useContext(CartContext)
+
   return (
     <header>
       <Navbar bg="dark" variant="dark" expand="lg" collapseOnSelect>
@@ -34,6 +26,7 @@ const Header = () => {
                 <LinkContainer to="/cart">
                   <Nav.Link>
                     <i className="fas fa-shopping-cart"></i> Cart {cartCount()}
+                    {/* <i className="fas fa-shopping-cart"></i> Cart {count} */}
                   </Nav.Link>
                 </LinkContainer>
               </Nav>
