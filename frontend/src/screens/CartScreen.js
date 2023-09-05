@@ -1,16 +1,17 @@
-import React, { useEffect } from "react"
+import React, { useEffect, useContext } from "react"
 import { Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import { useCartContext, CartContext } from "../contexts/CartContext"
 
 const CartScreen = () => {
   const [products, setProducts] = React.useState([])
-  const [cart, setCart] = React.useState({})
   const [total, setTotal] = React.useState(0.0)
+  const { cart } = useCartContext()
+  const { addToCart, removeFromCart } = useContext(CartContext)
 
   useEffect(() => {
     console.log("initial effect")
-    setCart(JSON.parse(localStorage.getItem("cart")))
   }, [])
 
   //cart effect
@@ -25,14 +26,12 @@ const CartScreen = () => {
       setProducts(result)
     }
     if (products.length === 0) fetchProducts()
-    localStorage.setItem("cart", JSON.stringify(cart))
 
     calculateTotal()
   }, [cart])
 
   //product effect
   useEffect(() => {
-    console.log("product effect")
     calculateTotal()
   }, [products])
 
@@ -51,48 +50,6 @@ const CartScreen = () => {
     }
     total = total.toFixed(2)
     setTotal(total)
-  }
-
-  const handleIncrementItem = (productId) => {
-    // localStorage.setItem("jwt", data.token)
-
-    //get qty of this item
-    let quantity = cart[productId]
-    quantity ? (quantity += 1) : (quantity = 1)
-
-    //update relevant part of cart
-    const result = { [productId]: quantity }
-    setCart((prevState) => {
-      //create new object so state knows something changed in the object
-      let newCart = {}
-      newCart = Object.assign(newCart, cart)
-      newCart = Object.assign(newCart, result)
-      return newCart
-    })
-    calculateTotal()
-  }
-
-  const handleDecrementItem = (productId) => {
-    // localStorage.setItem("jwt", data.token)
-
-    //get qty of this item
-    let quantity = cart[productId]
-    if (quantity) quantity -= 1
-    // console.log("productID", cart.productId)
-
-    //update relevant part of cart
-    const result = { [productId]: quantity }
-    if (quantity === 0) {
-      delete cart[productId]
-    }
-    setCart((prevState) => {
-      //create new object so state knows something changed in the object
-      let newCart = {}
-      newCart = Object.assign(newCart, cart)
-      if (result[productId] !== 0) newCart = Object.assign(newCart, result)
-      return newCart
-    })
-    calculateTotal()
   }
 
   const details = products.map((product) => {
@@ -127,14 +84,16 @@ const CartScreen = () => {
                     <small className="text-muted">
                       <btn
                         className="button-background"
-                        onClick={() => handleDecrementItem(product._id)}
+                        // onClick={() => handleDecrementItem(product._id)}
+                        onClick={() => removeFromCart(product._id)}
                       >
                         -
                       </btn>{" "}
                       {cart[product._id]}{" "}
                       <btn
                         className="button-background"
-                        onClick={() => handleIncrementItem(product._id)}
+                        // onClick={() => handleIncrementItem(product._id)}
+                        onClick={() => addToCart(product._id)}
                         onHover="pointer"
                       >
                         +
@@ -149,6 +108,7 @@ const CartScreen = () => {
       )
     }
   })
+
   return (
     <div>
       <h1>Your Cart</h1>

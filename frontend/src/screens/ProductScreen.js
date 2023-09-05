@@ -23,7 +23,7 @@ const Product = (props) => {
   const handleAddToCart = () => {
     // localStorage.setItem("jwt", data.token)
 
-    return addToCart(product)
+    return addToCart(product._id)
 
     // if (
     //   //might have to check the {} for empty cart after handling remove from cart functionality

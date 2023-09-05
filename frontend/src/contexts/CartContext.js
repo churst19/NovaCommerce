@@ -31,28 +31,37 @@ export const CartContextProvider = ({ children }) => {
     return sum
   }
 
-  const addToCart = (item) => {
+  const addToCart = (itemId) => {
     // localStorage.setItem("jwt", data.token)
-    console.log("adding to cart")
     //get qty of this item
-    let quantity = cart[item._id]
+    let quantity = cart[itemId]
     quantity ? (quantity += 1) : (quantity = 1)
 
     //update relevant part of cart
-    const result = { [item._id]: quantity }
-    // setCart((prevCart) => {
-    //   const temp = Object.assign(prevCart, result)
-    //   const temp2 = Object.create(temp)
-    //   console.log(temp2)
-    //   return temp2
-    // })
-    setCart((prevCart) => ({ ...prevCart, [item._id]: quantity }))
+    const result = { [itemId]: quantity }
+    setCart((prevCart) => ({ ...prevCart, [itemId]: quantity }))
 
     // localStorage.setItem("cart", JSON.stringify(cart))
   }
 
+  const removeFromCart = (itemId) => {
+    // localStorage.setItem("jwt", data.token)
+    //get qty of this item
+    let quantity = cart[itemId]
+    if (quantity) quantity -= 1
+
+    if (quantity <= 0) {
+      setCart((prevCart) => {
+        const temp = { ...prevCart }
+        delete temp[itemId]
+        return temp
+      })
+    } else {
+      setCart((prevCart) => ({ ...prevCart, [itemId]: quantity }))
+    }
+  }
+
   useEffect(() => {
-    console.log("cartContext initial effect")
     const cart = localStorage.getItem("cart")
     if (cart) {
       setCart(JSON.parse(cart))
@@ -60,15 +69,7 @@ export const CartContextProvider = ({ children }) => {
   }, [])
 
   useEffect(() => {
-    console.log("cartContext cart change effect")
     localStorage.setItem("cart", JSON.stringify(cart))
-
-    // setCartCount((prevState) => {
-    //   Object.values(cart).reduce(
-    //     (sumAccumulator, currentValue) => sumAccumulator + currentValue,
-    //     0
-    //   )
-    // })
   }, [cart])
 
   return (
@@ -78,6 +79,7 @@ export const CartContextProvider = ({ children }) => {
         setCart,
         cartCount,
         addToCart,
+        removeFromCart,
         cartCount,
         // setCartCount,
       }}
