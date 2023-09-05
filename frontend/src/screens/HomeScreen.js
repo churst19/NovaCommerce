@@ -9,14 +9,11 @@ const HomeScreen = () => {
   const [products, setProducts] = React.useState([])
 
   useEffect(() => {
-    console.log("effect")
     const fetchProducts = async () => {
       const { data } = await axios.get("/api/products")
       setProducts(data)
     }
     fetchProducts()
-    // console.log(products)
-    // console.log(res)
   }, [])
 
   const details = products.map((product) => {

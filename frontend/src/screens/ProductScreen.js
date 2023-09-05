@@ -12,7 +12,6 @@ const Product = (props) => {
   const [product, setProduct] = React.useState([])
 
   useEffect(() => {
-    // console.log("effect")
     const fetchProduct = async () => {
       const { data } = await axios.get(`/api/products/${props.match.params.id}`)
       setProduct(data)
@@ -20,32 +19,6 @@ const Product = (props) => {
     fetchProduct()
   }, [props.match])
 
-  const handleAddToCart = () => {
-    // localStorage.setItem("jwt", data.token)
-
-    return addToCart(product._id)
-
-    // if (
-    //   //might have to check the {} for empty cart after handling remove from cart functionality
-    //   !localStorage.getItem("cart")
-    //   // JSON.parse(localStorage.getItem("cart") === "{}")
-    // ) {
-    //   //handle empty cart or cart that doesn't exist
-    //   localStorage.setItem("cart", JSON.stringify({ [product._id]: 1 }))
-    // } else {
-    //   //get whole cart
-    //   let cart = JSON.parse(localStorage.getItem("cart"))
-    //   //get qty of this item
-    //   let quantity = cart[product._id]
-    //   quantity ? (quantity += 1) : (quantity = 1)
-
-    //   //update relevant part of cart
-    //   const result = { [product._id]: quantity }
-    //   Object.assign(cart, result)
-
-    //   localStorage.setItem("cart", JSON.stringify(cart))
-    // }
-  }
   return (
     <div>
       <Link style={{ textDecoration: "none" }} to={`/`}>
@@ -70,7 +43,10 @@ const Product = (props) => {
             <h2>
               <strong>${product.price}</strong>
             </h2>
-            <btn className="button-background" onClick={handleAddToCart}>
+            <btn
+              className="button-background"
+              onClick={() => addToCart(product._id)}
+            >
               Add to cart
             </btn>
           </div>

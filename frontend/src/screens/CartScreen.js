@@ -10,9 +10,9 @@ const CartScreen = () => {
   const { cart } = useCartContext()
   const { addToCart, removeFromCart } = useContext(CartContext)
 
-  useEffect(() => {
-    console.log("initial effect")
-  }, [])
+  // useEffect(() => {
+  //   console.log("initial effect")
+  // }, [])
 
   //cart effect
   useEffect(() => {

@@ -34,13 +34,13 @@ const LoginScreen = () => {
     try {
       const res = await axios.post("/api/users/login", formData)
       const data = res.data
-      console.log(data)
+      // console.log(data)
       localStorage.setItem("jwt", data.token)
       localStorage.setItem("user", JSON.stringify(data.message))
       // dispatch({ type: "USER", payload: data.user })
       history.push("/")
     } catch (err) {
-      console.log("in error")
+      // console.log("in error")
       console.log(err)
     }
   }
