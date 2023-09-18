@@ -79,7 +79,6 @@ const CartScreen = () => {
                   <p className="card-text">
                     ${calculatePrice(product.price, cart[product._id])}
                   </p>
-                  <p>{product._id}</p>
                   <p className="card-text">
                     <small className="text-muted">
                       <btn
