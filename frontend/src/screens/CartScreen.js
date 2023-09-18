@@ -8,7 +8,7 @@ const CartScreen = () => {
   const [products, setProducts] = React.useState([])
   const [total, setTotal] = React.useState(0.0)
   const { cart } = useCartContext()
-  const { addToCart, removeFromCart } = useContext(CartContext)
+  const { addToCart, removeFromCart, clearCart } = useContext(CartContext)
 
   // useEffect(() => {
   //   console.log("initial effect")
@@ -115,6 +115,16 @@ const CartScreen = () => {
       <Row>{details}</Row>
       {/* TODO: implement total card on right or below here */}
       <Row>TOTAL ${total}</Row>
+      <Row>
+        <btn
+          className="button-background"
+          // onClick={() => handleIncrementItem(product._id)}
+          onClick={() => clearCart()}
+          onHover="pointer"
+        >
+          Clear Cart
+        </btn>
+      </Row>
     </div>
   )
 }

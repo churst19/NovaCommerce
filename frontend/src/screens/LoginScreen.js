@@ -1,10 +1,10 @@
 import React, { useEffect, useState, useContext } from "react"
 // import products from "../products"
 import { LinkContainer } from "react-router-bootstrap"
-import { Row, Col } from "react-bootstrap"
+// import { Row, Col } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom"
-import axios from "axios"
-import { UserContext } from "../App.js"
+// import axios from "axios"
+import { UserContext, useUserContext } from "../contexts/UserContext"
 // import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const LoginScreen = () => {
@@ -13,6 +13,8 @@ const LoginScreen = () => {
     email: "",
     password: "",
   })
+  const { user } = useUserContext()
+  const { login } = useContext(UserContext)
 
   // const { state, dispatch } = useContext(UserContext)
   // console.log(formData)
@@ -30,20 +32,10 @@ const LoginScreen = () => {
 
   const submitHandler = async (event) => {
     event.preventDefault()
-    // console.log(formData)
-    try {
-      const res = await axios.post("/api/users/login", formData)
-      const data = res.data
-      // console.log(data)
-      localStorage.setItem("jwt", data.token)
-      localStorage.setItem("user", JSON.stringify(data.message))
-      // dispatch({ type: "USER", payload: data.user })
-      history.push("/")
-    } catch (err) {
-      // console.log("in error")
-      console.log(err)
-    }
+    const loginStatus = await login(formData)
+    if (loginStatus === "success") history.push("/")
   }
+
   return (
     <div className="Auth-form-container">
       <form className="Auth-form" onSubmit={submitHandler}>

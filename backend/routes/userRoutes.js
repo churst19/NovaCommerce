@@ -18,7 +18,7 @@ const userRouter = express.Router()
 userRouter.post("/signup", async (req, res) => {
   // console.log(req.body)
   const temp = req.body
-  const user = { ...temp, password: bcrypt.hashSync(req.body.password) }
+  const user = { ...temp, password: bcrypt.hashSync(req.body.password, 10) }
   await User.create(user)
   try {
     res.json({ msg: "User added successfully" })

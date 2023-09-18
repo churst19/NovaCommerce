@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react"
 // import products from "../products"
 import { Row, Col } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import axios from "axios"
 // import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const SignupScreen = () => {
+  const history = useHistory()
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -26,6 +28,7 @@ const SignupScreen = () => {
   const submitHandler = (event) => {
     event.preventDefault()
     axios.post("/api/users/signup", formData)
+    history.push("/login")
   }
 
   return (
