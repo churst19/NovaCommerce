@@ -36,7 +36,7 @@ app.use("/api/products", productRouter)
 app.use("/api/users", userRouter)
 
 app.post("/create-checkout-session", async (req, res) => {
-  console.log("in create checkout session...")
+  // console.log("in create checkout session...")
   const data = JSON.parse(req.body.body)
   // console.log("test ", data["644c5a791a157b9006704c94"])
   // getLineItems()
