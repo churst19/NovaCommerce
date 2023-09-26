@@ -52,6 +52,25 @@ const CartScreen = () => {
     setTotal(total)
   }
 
+  const handleCheckout = () => {
+    axios
+      .post(`/create-checkout-session`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cart),
+      })
+      .then((res) => {
+        if (res.status === 200) return res.data
+        return res.toJSON().then((json) => Promise.reject(json))
+      })
+      .then(({ url }) => {
+        window.location = url
+      })
+      .catch((e) => {
+        console.error(e)
+      })
+  }
+
   const details = products.map((product) => {
     let quantity = cart[product._id]
     if (quantity !== 0 && quantity !== undefined) {
@@ -112,17 +131,26 @@ const CartScreen = () => {
     <div>
       <h1>Your Cart</h1>
       <Row>{details}</Row>
-      {/* TODO: implement total card on right or below here */}
       <Row>TOTAL ${total}</Row>
       <Row>
-        <btn
-          className="button-background"
-          // onClick={() => handleIncrementItem(product._id)}
-          onClick={() => clearCart()}
-          onHover="pointer"
-        >
-          Clear Cart
-        </btn>
+        <Col>
+          <btn
+            className="button-background"
+            onClick={() => clearCart()}
+            onHover="pointer"
+          >
+            Clear Cart
+          </btn>
+        </Col>
+        <Col>
+          <btn
+            className="button-background"
+            onClick={() => handleCheckout()}
+            onHover="pointer"
+          >
+            Checkout
+          </btn>
+        </Col>
       </Row>
     </div>
   )

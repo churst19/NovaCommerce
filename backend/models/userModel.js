@@ -21,6 +21,12 @@ const userSchema = mongoose.Schema(
     },
     password: { type: String, required: true },
     isAdmin: { type: Boolean, required: true, default: false },
+    // cart: {
+    //   type: Object,
+    //   required: false,
+    //   index: true,
+    //   default: {},
+    // },
   },
   { timestamps: true }
 )

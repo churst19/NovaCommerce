@@ -1,5 +1,6 @@
 import React, { createContext, useState, useEffect, useContext } from "react"
 import { useHistory } from "react-router-dom"
+// import { useCartContext, CartContext } from "../contexts/CartContext"
 
 import axios from "axios"
 
@@ -26,6 +27,7 @@ export const UserContextProvider = ({ children }) => {
       localStorage.setItem("jwt", data.token)
       //   localStorage.setItem("user", JSON.stringify(data.message))
       // dispatch({ type: "USER", payload: data.user })
+      console.log(data)
       return "success"
     } catch (err) {
       console.log("login error: ", err)
