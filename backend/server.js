@@ -36,34 +36,18 @@ app.use("/api/products", productRouter)
 app.use("/api/users", userRouter)
 
 app.post("/create-checkout-session", async (req, res) => {
-  // console.log("in create checkout session...")
   const data = JSON.parse(req.body.body)
-  // console.log("test ", data["644c5a791a157b9006704c94"])
-  // getLineItems()
-
-  // console.log(data)
-  // for (const item in data) {
-  // console.log(item)
-  // console.log(data[item])
-  // }
-  // console.log("end")
 
   try {
     const getLineItems = async () => {
-      // console.log("getLineItems test")
-      // const itemData = axios.get(`/api/products/644c5a791a157b9006704c94`)
       const itemData = await Product.findOne({
         _id: "644c5a791a157b9006704c94",
       })
-      // console.log("itemdata ", itemData.name)
-      // console.log("itemdata ", itemData)
       let result = []
       for (const item in data) {
-        // console.log(item)
         const itemData = await Product.findOne({
           _id: item,
         })
-        // console.log(itemData)
         result.push({
           price_data: {
             currency: "usd",
@@ -82,13 +66,19 @@ app.post("/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       line_items: await getLineItems(),
-      success_url: `${process.env.CLIENT_URL}/success`,
+      success_url: `${process.env.CLIENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.CLIENT_URL}/cart`,
     })
     res.json({ url: session.url })
   } catch (e) {
     res.status(500).json({ error: e.message })
   }
+})
+
+app.get("/order/success", async (req, res) => {
+  console.log("success API")
+  const session = await stripe.checkout.sessions.retrieve(req.query.session_id)
+  res.send(session.customer_details.name)
 })
 // app.use("/api/orders", orderRouter)
 

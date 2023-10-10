@@ -8,6 +8,7 @@ import ProductScreen from "./screens/ProductScreen"
 import LoginScreen from "./screens/LoginScreen"
 import SignupScreen from "./screens/SignupScreen"
 import CartScreen from "./screens/CartScreen"
+import SuccessScreen from "./screens/SuccessScreen"
 
 export const UserContext = createContext()
 
@@ -26,6 +27,10 @@ const App = () => {
             <Route path="/login" component={withRouter(LoginScreen)}></Route>
             <Route path="/signup" component={withRouter(SignupScreen)}></Route>
             <Route path="/cart" component={withRouter(CartScreen)}></Route>
+            <Route
+              path="/success"
+              component={withRouter(SuccessScreen)}
+            ></Route>
           </Container>
         </main>
         <Footer />
