@@ -1,0 +1,47 @@
+main {
+  min-height: 80vh;
+}
+.card {
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+/* TODO: remove this vvv */
+.anchor_nounderline {
+  text-decoration: none;
+}
+
+.product {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+}
+.product-img {
+  max-width: 100%;
+  height: auto;
+  /* max-height: 400px; */
+  object-fit: fill;
+}
+.product-body {
+  margin-left: 20px;
+}
+.product-backButton {
+  margin-left: 3px;
+}
+.button-background {
+  background-color: black;
+  border-radius: 20px;
+  padding: 3px 15px;
+  color: white;
+}
+.Auth-form-container {
+  max-width: 350;
+  display: flex;
+  justify-content: center;
+}
+
+.button-background {
+  cursor: pointer;
+}
+.button-background:hover {
+  background-color: gray;
+}
