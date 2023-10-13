@@ -2,6 +2,7 @@ import express from "express"
 import dotenv from "dotenv"
 import connectDB from "./config/db.js"
 import Product from "./models/productModel.js"
+import path from "path"
 
 // const mongoose = require("mongoose");
 const PORT = process.env.PORT || 5000
