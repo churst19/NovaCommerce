@@ -24,7 +24,7 @@ const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY)
 app.use(express.json())
 
 if (process.env.NODE_ENV == "production") {
-  app.use(express.static("frontend/build"))
+  app.use(express.static(path.join(__dirname, "frontend/build")))
   // const path = require("path")
   app.get("*", (req, res) => {
     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
