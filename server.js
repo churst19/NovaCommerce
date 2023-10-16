@@ -19,11 +19,13 @@ dotenv.config()
 const corsOptions = {
   origin: "http://localhost:3000", // frontend URI (ReactJS)
 }
-app.use(express.json())
-app.use(cors(corsOptions))
+
 connectDB()
 
 const app = express()
+
+app.use(express.json())
+app.use(cors(corsOptions))
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY)
 
