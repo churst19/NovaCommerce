@@ -20,8 +20,11 @@ export const UserContextProvider = ({ children }) => {
 
   const login = async (formData) => {
     // localStorage.setItem("jwt", data.token)
+    const BASEURL =
+      "https://novacommerceserver.onrender.com" || "localhost:5000"
+
     try {
-      const res = await axios.post("/api/users/login", formData)
+      const res = await axios.post(`${BASEURL}/api/users/login`, formData)
       const data = res.data
       setUser(data.message)
       localStorage.setItem("jwt", data.token)

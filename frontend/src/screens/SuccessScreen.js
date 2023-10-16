@@ -9,9 +9,11 @@ const Success = () => {
   const [page, setPage] = React.useState()
   const queryString = window.location.search
 
+  const BASEURL = "https://novacommerceserver.onrender.com" || "localhost:5000"
+
   useEffect(() => {
     const fetchSuccess = async () => {
-      const { data } = await axios.get(`/order/success${queryString}`)
+      const { data } = await axios.get(`${BASEURL}/order/success${queryString}`)
       setPage(data)
       clearCart()
     }

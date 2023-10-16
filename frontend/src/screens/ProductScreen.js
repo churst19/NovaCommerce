@@ -11,9 +11,13 @@ const Product = (props) => {
   const { addToCart } = useContext(CartContext)
   const [product, setProduct] = React.useState([])
 
+  const BASEURL = "https://novacommerceserver.onrender.com" || "localhost:5000"
+
   useEffect(() => {
     const fetchProduct = async () => {
-      const { data } = await axios.get(`/api/products/${props.match.params.id}`)
+      const { data } = await axios.get(
+        `${BASEURL}/api/products/${props.match.params.id}`
+      )
       setProduct(data)
     }
     fetchProduct()

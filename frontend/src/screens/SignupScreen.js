@@ -9,6 +9,8 @@ import axios from "axios"
 const SignupScreen = () => {
   const history = useHistory()
 
+  const BASEURL = "https://novacommerceserver.onrender.com" || "localhost:5000"
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -27,7 +29,7 @@ const SignupScreen = () => {
 
   const submitHandler = (event) => {
     event.preventDefault()
-    axios.post("/api/users/signup", formData)
+    axios.post(`${BASEURL}/api/users/signup`, formData)
     history.push("/login")
   }
 

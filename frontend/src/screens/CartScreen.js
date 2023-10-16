@@ -10,6 +10,8 @@ const CartScreen = () => {
   const { cart } = useCartContext()
   const { addToCart, removeFromCart, clearCart } = useContext(CartContext)
 
+  const BASEURL = "https://novacommerceserver.onrender.com" || "localhost:5000"
+
   // useEffect(() => {
   //   console.log("initial effect")
   // }, [])
@@ -19,7 +21,7 @@ const CartScreen = () => {
     const fetchProducts = async () => {
       let result = []
       for (let cartProductId in cart) {
-        let temp = await axios.get(`/api/products/${cartProductId}`)
+        let temp = await axios.get(`${BASEURL}/api/products/${cartProductId}`)
         result.push(temp.data)
       }
 
@@ -54,7 +56,7 @@ const CartScreen = () => {
 
   const handleCheckout = () => {
     axios
-      .post(`/create-checkout-session`, {
+      .post(`${BASEURL}/create-checkout-session`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(cart),
