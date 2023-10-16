@@ -13,14 +13,14 @@ import colors from "colors"
 import productRouter from "./routes/productRoutes.js"
 import userRouter from "./routes/userRoutes.js"
 import Stripe from "stripe"
-import cors from cors
+import cors from "cors"
 dotenv.config()
 
 const corsOptions = {
-  origin: "http://localhost:3000" // frontend URI (ReactJS)
+  origin: "http://localhost:3000", // frontend URI (ReactJS)
 }
-app.use(express.json());
-app.use(cors(corsOptions));
+app.use(express.json())
+app.use(cors(corsOptions))
 connectDB()
 
 const app = express()
