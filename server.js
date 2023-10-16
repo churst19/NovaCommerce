@@ -13,28 +13,34 @@ import colors from "colors"
 import productRouter from "./routes/productRoutes.js"
 import userRouter from "./routes/userRoutes.js"
 import Stripe from "stripe"
+import cors from cors
 dotenv.config()
 
+const corsOptions = {
+  origin: "http://localhost:3000" // frontend URI (ReactJS)
+}
+app.use(express.json());
+app.use(cors(corsOptions));
 connectDB()
 
 const app = express()
 
 const stripe = new Stripe(process.env.STRIPE_PRIVATE_KEY)
 
-app.use(express.json())
+// app.use(express.json())
 
-if (process.env.NODE_ENV == "production") {
-  // app.use(express.static("frontend/build"))
-  // const path = require("path")
-  //   app.get("*", (req, res) => {
-  //     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
-  //   })
-  app.use(express.static(path.join(__dirname, "build")))
+// if (process.env.NODE_ENV == "production") {
+//   // app.use(express.static("frontend/build"))
+//   // const path = require("path")
+//   //   app.get("*", (req, res) => {
+//   //     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+//   //   })
+//   app.use(express.static(path.join(__dirname, "build")))
 
-  app.get("/*", function (req, res) {
-    res.sendFile(path.join(__dirname, "build", "index.html"))
-  })
-}
+//   app.get("/*", function (req, res) {
+//     res.sendFile(path.join(__dirname, "build", "index.html"))
+//   })
+// }
 
 app.get("/", (req, res) => {
   res.send("API is running...")

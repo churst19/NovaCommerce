@@ -8,11 +8,16 @@
     "heroku-postbuild": "npm run frontend-install && npm run frontend-build",
     "frontend-install": "cd frontend && npm install",
     "frontend-build": "cd frontend && npm run build",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix frontend",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "serverA": "nodemon server.js",
+    "clientA": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run serverA\" \"npm run clientA\"",
     "data:import": "node seeder",
-    "data:destroy": "node seeder -d"
+    "data:destroy": "node seeder -d",
+    "install-server": "npm install",
+    "start-server": "node server.js",
+    "install-client": "cd frontend && npm install",
+    "build-client": "cd frontend && npm run build",
+    "start-client": "cd frontend && npm run start"
   },
   "type": "module",
   "author": "Chris Hurst",
@@ -20,6 +25,7 @@
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
