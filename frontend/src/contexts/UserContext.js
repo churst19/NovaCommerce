@@ -1,5 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react"
 import { useHistory } from "react-router-dom"
+import { BASEURL } from "../Constants"
+
 // import { useCartContext, CartContext } from "../contexts/CartContext"
 
 import axios from "axios"
@@ -20,8 +22,6 @@ export const UserContextProvider = ({ children }) => {
 
   const login = async (formData) => {
     // localStorage.setItem("jwt", data.token)
-    const BASEURL =
-      "https://novacommerceserver.onrender.com" || "localhost:5000"
 
     try {
       const res = await axios.post(`${BASEURL}/api/users/login`, formData)

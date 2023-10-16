@@ -3,13 +3,12 @@ import React, { useEffect, useState } from "react"
 import { Row, Col } from "react-bootstrap"
 import { LinkContainer } from "react-router-bootstrap"
 import { Link, useHistory } from "react-router-dom"
+import { BASEURL } from "../Constants"
 import axios from "axios"
 // import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const SignupScreen = () => {
   const history = useHistory()
-
-  const BASEURL = "https://novacommerceserver.onrender.com" || "localhost:5000"
 
   const [formData, setFormData] = useState({
     username: "",

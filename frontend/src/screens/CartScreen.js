@@ -3,14 +3,13 @@ import { Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { useCartContext, CartContext } from "../contexts/CartContext"
+import { BASEURL } from "../Constants"
 
 const CartScreen = () => {
   const [products, setProducts] = React.useState([])
   const [total, setTotal] = React.useState(0.0)
   const { cart } = useCartContext()
   const { addToCart, removeFromCart, clearCart } = useContext(CartContext)
-
-  const BASEURL = "https://novacommerceserver.onrender.com" || "localhost:5000"
 
   // useEffect(() => {
   //   console.log("initial effect")

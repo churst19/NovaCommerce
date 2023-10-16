@@ -3,6 +3,7 @@ import React, { useEffect, useContext } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import { CartContext } from "../contexts/CartContext"
+import { BASEURL } from "../Constants"
 
 const Product = (props) => {
   // const product = products.find((p) => p._id === props.match.params.id)
@@ -10,8 +11,6 @@ const Product = (props) => {
   //TODO: make this more responsive when resizing
   const { addToCart } = useContext(CartContext)
   const [product, setProduct] = React.useState([])
-
-  const BASEURL = "https://novacommerceserver.onrender.com" || "localhost:5000"
 
   useEffect(() => {
     const fetchProduct = async () => {

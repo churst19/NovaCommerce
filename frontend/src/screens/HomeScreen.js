@@ -3,12 +3,11 @@ import React, { useEffect } from "react"
 import { Row, Col } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import axios from "axios"
+import { BASEURL } from "../Constants"
 // import { BrowserRouter as Router, Route } from "react-router-dom"
 
 const HomeScreen = () => {
   const [products, setProducts] = React.useState([])
-
-  const BASEURL = "https://novacommerceserver.onrender.com" || "localhost:5000"
 
   useEffect(() => {
     const fetchProducts = async () => {

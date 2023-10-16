@@ -16,8 +16,16 @@ import Stripe from "stripe"
 import cors from "cors"
 dotenv.config()
 
+// const FRONTEND_URL = "http://localhost:3000"
+const FRONTEND_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://novacommerce.onrender.com"
+
+// "https://novacommerce.onrender.com" || "http://localhost:3000"
 const corsOptions = {
-  origin: "https://novacommerce.onrender.com" || "http://localhost:3000", // frontend URI (ReactJS)
+  origin: FRONTEND_URL, // frontend URI (ReactJS)
+  // origin: "http://localhost:3000", // frontend URI (ReactJS)
 }
 
 connectDB()
@@ -88,8 +96,8 @@ app.post("/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       line_items: await getLineItems(),
-      success_url: `${process.env.CLIENT_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${process.env.CLIENT_URL}/cart`,
+      success_url: `${FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${FRONTEND_URL}/cart`,
     })
     res.json({ url: session.url })
   } catch (e) {
