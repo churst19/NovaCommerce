@@ -17,7 +17,7 @@ import cors from "cors"
 dotenv.config()
 
 const corsOptions = {
-  origin: "http://localhost:3000", // frontend URI (ReactJS)
+  origin: "https://novacommerce.onrender.com" || "http://localhost:3000", // frontend URI (ReactJS)
 }
 
 connectDB()
