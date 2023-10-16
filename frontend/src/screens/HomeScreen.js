@@ -8,9 +8,11 @@ import axios from "axios"
 const HomeScreen = () => {
   const [products, setProducts] = React.useState([])
 
+  const BASEURL = "https://novacommerceserver.onrender.com" || "localhost:5000"
+
   useEffect(() => {
     const fetchProducts = async () => {
-      const { data } = await axios.get("/api/products")
+      const { data } = await axios.get(`${BASEURL}/api/products`)
       setProducts(data)
     }
     fetchProducts()
