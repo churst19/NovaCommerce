@@ -107,7 +107,6 @@ app.post("/create-checkout-session", async (req, res) => {
 })
 
 app.get("/order/success", async (req, res) => {
-  console.log("success API")
   const session = await stripe.checkout.sessions.retrieve(req.query.session_id)
   res.send(session.customer_details.name)
 })

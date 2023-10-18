@@ -144,16 +144,13 @@ const CartScreen = () => {
           </btn>
         </Col>
         <Col>
-          <form>
-            <btn
-              className="button-background"
-              type="submit"
-              onClick={() => handleCheckout()}
-              onHover="pointer"
-            >
-              Checkout
-            </btn>
-          </form>
+          <btn
+            className="button-background"
+            onClick={() => handleCheckout()}
+            onHover="pointer"
+          >
+            Checkout
+          </btn>
         </Col>
       </Row>
     </div>
