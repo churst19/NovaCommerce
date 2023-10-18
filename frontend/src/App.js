@@ -1,5 +1,6 @@
 import React, { createContext } from "react"
-import { BrowserRouter as Router, Route, withRouter } from "react-router-dom"
+// import { BrowserRouter as Router, Route, withRouter } from "react-router-dom"
+import { HashRouter as Router, Route, withRouter } from "react-router-dom"
 import { Container } from "react-bootstrap"
 import Header from "./components/Navbar"
 import Footer from "./components/Footer"
