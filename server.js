@@ -20,7 +20,7 @@ dotenv.config()
 const FRONTEND_URL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : "https://novacommerce.onrender.com"
+    : "http://novacommerce.onrender.com"
 
 // "https://novacommerce.onrender.com" || "http://localhost:3000"
 const corsOptions = {
