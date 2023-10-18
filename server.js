@@ -96,8 +96,9 @@ app.post("/create-checkout-session", async (req, res) => {
       payment_method_types: ["card"],
       mode: "payment",
       line_items: await getLineItems(),
-      success_url: `${FRONTEND_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${FRONTEND_URL}/cart`,
+      //Hashes are in the path due to HashRouter on front end
+      success_url: `${FRONTEND_URL}/#/success?session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${FRONTEND_URL}/#/cart`,
     })
     res.json({ url: session.url })
   } catch (e) {
