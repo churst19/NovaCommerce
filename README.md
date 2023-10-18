@@ -1,5 +1,7 @@
 # Link to site: https://novacommerce.onrender.com
 
+(may take a moment to connect to the database on first load)
+
 # What is this site?
 
 This is an ecommerce site built using MongoDB, Express, React, node.js, and Stripe. You can create an account and log in, add things to your cart, remove them, empty your cart, and checkout using stripe.
