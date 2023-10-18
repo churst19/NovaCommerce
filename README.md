@@ -1,8 +1,22 @@
-https://novacommerce.onrender.com
+# Link to site: https://novacommerce.onrender.com
 
-MERN and stripe ecommerce site
+# What is this site?
 
-No real email is required to make an account.
-Login works but has no purpose at the moment. It will eventually save order history and the user's cart.
+This is an ecommerce site built using MongoDB, Express, React, node.js, and Stripe. You can create an account and log in, add things to your cart, remove them, empty your cart, and checkout using stripe.
+**Note:** To use this website, it does not require you to use a real email address or verify it, so you can easily create a new user and look at the website. However, an account has no purpose at this time beyond creating a user, logging in, and logging out. Future updates will add the ability to save cart information, order history, and user information beyond an email/password.
+_To test a successful checkout, use card number 4242 4242 4242 4242_
 
-To test stripe checkout use repeating 4242 as the card number
+# What I learned
+
+**This project reinforced my knowledge of:**
+
+- authenticating users
+- hashing passwords
+- using local storage
+- creating a backend to a website including the database and API requests
+- dynamically displaying products based on content from the server
+
+**I also learned:**
+
+- how to set up and use cors with axios
+- how to integrate third party services such as stripe
