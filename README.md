@@ -1,6 +1,6 @@
 # Link to site: https://novacommerce.onrender.com
 
-(may take a moment to connect to the database on first load)
+**(The server takes approximately 1 minute to start up on first load, at which point you may need to refresh the page to view the website as intended)**
 
 # What is this site?
 
