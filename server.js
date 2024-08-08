@@ -138,7 +138,7 @@ app.get("/order/success", async (req, res) => {
 // });
 
 // const customMiddleware = (req, res, next) => {
-//   //user authentication here?
+//   //user authentication may go here
 //   console.log("middleware used");
 //   next();
 // };
